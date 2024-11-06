@@ -1,0 +1,14 @@
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="ErrorHandler">
+    <log level="custom">
+        <property name="ERROR_CODE" expression="get-property('ERROR_CODE')"/>
+        <property name="ERROR_MESSAGE" expression="get-property('ERROR_MESSAGE')"/>
+    </log>
+    <payloadFactory media-type="json">
+        <format>{"error": true, "message": "Failed to process your request due to backend errors", "details": "Error Code: $1, Error Message: $2"}</format>
+        <args>
+            <arg evaluator="xml" expression="get-property('ERROR_CODE')"/>
+            <arg evaluator="xml" expression="get-property('ERROR_MESSAGE')"/>
+        </args>
+    </payloadFactory>
+    <respond/>
+</sequence>
