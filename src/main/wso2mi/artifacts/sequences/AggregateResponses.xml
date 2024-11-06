@@ -1,9 +1,9 @@
 <sequence xmlns="http://ws.apache.org/ns/synapse" name="AggregateResponses">
-    <script language="js">
+    <script language="js"><![CDATA[
         var response1 = mc.getProperty('response1');
         var response2 = mc.getProperty('response2');
-        var finalResponse = { "response1": JSON.parse(response1), "response2": JSON.parse(response2) };
+        var finalResponse = { "productDetails": JSON.parse(response1), "inventory": JSON.parse(response2) };
         mc.setPayloadJSON(finalResponse);
-    </script>
+    ]]></script>
     <respond/>
 </sequence>

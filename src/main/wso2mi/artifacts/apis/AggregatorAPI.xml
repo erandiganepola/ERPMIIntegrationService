@@ -1,10 +1,17 @@
 <api xmlns="http://ws.apache.org/ns/synapse" name="AggregatorAPI" context="/aggregate">
-    <resource methods="GET" uri-template="/data">
+    <resource methods="GET" uri-template="/data/{id}">
         <inSequence>
+            <property name="uri.var.id" expression="get-property('uri.var.id')" scope="default" type="STRING"/>
+            <log level="custom">
+                <property name="Path_Parameter_ID" expression="get-property('uri.var.id')"/>
+            </log>
             <call>
                 <endpoint key="BackendEndpoint1"/>
             </call>
             <property name="response1" expression="json-eval($)" scope="default" type="STRING"/>
+            <log level="custom">
+                <property name="Path_Parameter_ID" expression="get-property('uri.var.id')"/>
+            </log>
             <call>
                 <endpoint key="BackendEndpoint2"/>
             </call>

@@ -6,8 +6,14 @@ info:
 servers:
 - url: http://localhost:8290/aggregate
 paths:
-  /data:
+  /data/{id}:
     get:
+      parameters:
+      - name: id
+        in: path
+        required: true
+        schema:
+          type: string
       responses:
         default:
           description: Default response

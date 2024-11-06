@@ -1,6 +1,5 @@
-<?xml version="1.0" encoding="UTF-8"?>
-<endpoint name="BackendEndpoint2" xmlns="http://ws.apache.org/ns/synapse">
-    <http method="get" uri-template="https://b48cc93e-fa33-4420-a155-bc653b4d46be-my-env.e1-us-east-azure.choreoapis.dev/xnzr/productbalservice/v1.0">
+<endpoint xmlns="http://ws.apache.org/ns/synapse" name="BackendEndpoint2">
+    <http method="get" uri-template="https://b48cc93e-fa33-4420-a155-bc653b4d46be-my-env.e1-us-east-azure.choreoapis.dev/xnzr/erpinventoryep/v1.0/inventory/{uri.var.id}">
         <suspendOnFailure>
             <initialDuration>-1</initialDuration>
             <progressionFactor>1</progressionFactor>
