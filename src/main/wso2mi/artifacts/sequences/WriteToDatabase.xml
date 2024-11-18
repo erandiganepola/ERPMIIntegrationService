@@ -1,0 +1,23 @@
+<sequence xmlns="http://ws.apache.org/ns/synapse" name="WriteToDatabase">
+    <log category="INFO" level="simple">
+        <property name="id" expression="json-eval($.productDetails.id)"/>
+        <property name="name" value="json-eval($.productDetails.name)"/>
+    </log>
+    <dbreport>
+        <connection>
+            <pool>
+                <driver>com.mysql.jdbc.Driver</driver>
+                <url>jdbc:mysql://localhost:3306/product_inventory</url>
+                <user>root</user>
+                <password>root</password>
+            </pool>
+        </connection>
+        <statement>
+            <sql><![CDATA[INSERT INTO product_inventory (id, name, quantity, price) VALUES (?, ?, ?, ?);]]></sql>
+            <parameter expression="json-eval($.productDetails.id)" type="VARCHAR"/>
+            <parameter expression="json-eval($.productDetails.name)" type="VARCHAR"/>
+            <parameter expression="json-eval($.inventory.quantity)" type="VARCHAR"/>
+            <parameter expression="json-eval($.productDetails.price.amount)" type="DOUBLE"/>
+        </statement>
+    </dbreport>
+</sequence>

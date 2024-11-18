@@ -23,4 +23,37 @@
             <sequence key="ErrorHandler"/>
         </faultSequence>
     </resource>
+    <resource methods="POST" uri-template="/data">
+        <inSequence>
+            <property name="uri.var.id" expression="json-eval($.id)" scope="default" type="STRING"/>
+            <log level="custom">
+                <property name="Extracted_Product_ID" expression="get-property('uri.var.id')"/>
+            </log>
+            <call>
+                <endpoint key="BackendEndpoint1"/>
+            </call>
+            <property name="response1" expression="json-eval($)" scope="default" type="STRING"/>
+            <call>
+                <endpoint key="BackendEndpoint2"/>
+            </call>
+            <property name="response2" expression="json-eval($)" scope="default" type="STRING"/>
+            <script language="js"><![CDATA[                var response1 = mc.getProperty('response1');
+                var response2 = mc.getProperty('response2');
+                var finalResponse = { "productDetails": JSON.parse(response1), "inventory": JSON.parse(response2) };
+                mc.setProperty('finalResponse', JSON.stringify(finalResponse));
+                mc.setPayloadJSON(finalResponse);
+            ]]></script>
+            <property name="uri.var.productDetails" expression="get-property('finalResponse')" scope="default" type="STRING"/>
+            <sequence key="WriteToDatabase"/>
+            <payloadFactory media-type="json" template-type="default">
+                <format>{"message": "Successfully Inserted Product Inventory Data"}</format>
+                <args>
+                </args>
+            </payloadFactory>
+            <respond description="Respond back to the client"/>
+        </inSequence>
+        <faultSequence>
+            <sequence key="ErrorHandler"/>
+        </faultSequence>
+    </resource>
 </api>
