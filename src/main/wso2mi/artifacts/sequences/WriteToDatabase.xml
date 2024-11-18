@@ -1,7 +1,8 @@
 <sequence xmlns="http://ws.apache.org/ns/synapse" name="WriteToDatabase">
     <log category="INFO" level="simple">
-        <property name="id" expression="json-eval($.productDetails.id)"/>
+        <property name="product_id" expression="json-eval($.productDetails.id)"/>
         <property name="name" value="json-eval($.productDetails.name)"/>
+        <property name="quantity" value="json-eval($.inventory.name)"/>
     </log>
     <dbreport>
         <connection>
@@ -13,7 +14,7 @@
             </pool>
         </connection>
         <statement>
-            <sql><![CDATA[INSERT INTO product_inventory (id, name, quantity, price) VALUES (?, ?, ?, ?);]]></sql>
+            <sql><![CDATA[INSERT INTO product_inventory (product_id, name, quantity, price) VALUES (?, ?, ?, ?);]]></sql>
             <parameter expression="json-eval($.productDetails.id)" type="VARCHAR"/>
             <parameter expression="json-eval($.productDetails.name)" type="VARCHAR"/>
             <parameter expression="json-eval($.inventory.quantity)" type="VARCHAR"/>
