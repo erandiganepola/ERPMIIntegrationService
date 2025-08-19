@@ -8,6 +8,7 @@
             <call>
                 <endpoint key="BackendEndpoint1"/>
             </call>
+            <log level="full" description="After BackendEndpoint1"/>
             <property name="response1" expression="json-eval($)" scope="default" type="STRING"/>
             <log level="custom">
                 <property name="Path_Parameter_ID" expression="get-property('uri.var.id')"/>
@@ -15,6 +16,7 @@
             <call>
                 <endpoint key="BackendEndpoint2"/>
             </call>
+            <log level="full" description="After BackendEndpoint2"/>
             <property name="response2" expression="json-eval($)" scope="default" type="STRING"/>
             <sequence key="AggregateResponses"/>
             <respond description="Respond back to the client"/>
@@ -32,11 +34,17 @@
             <call>
                 <endpoint key="BackendEndpoint1"/>
             </call>
+            <log level="full" description="After BackendEndpoint1"/>
             <property name="response1" expression="json-eval($)" scope="default" type="STRING"/>
             <call>
                 <endpoint key="BackendEndpoint2"/>
             </call>
+            <log level="full" description="After BackendEndpoint2"/>
             <property name="response2" expression="json-eval($)" scope="default" type="STRING"/>
+            <log level="custom">
+                <property name="response1" expression="get-property('response1')"/>
+                <property name="response2" expression="get-property('response2')"/>
+            </log>
             <script language="js"><![CDATA[                var response1 = mc.getProperty('response1');
                 var response2 = mc.getProperty('response2');
                 var finalResponse = { "productDetails": JSON.parse(response1), "inventory": JSON.parse(response2) };

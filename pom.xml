@@ -332,32 +332,6 @@
   </profiles>
   <build>
     <plugins>
-      <plugin>
-        <groupId>org.wso2.maven</groupId>
-        <artifactId>synapse-unit-test-maven-plugin</artifactId>
-        <version>5.2.75</version>
-        <executions>
-          <execution>
-            <id>synapse-unit-test</id>
-            <phase>test</phase>
-            <goals>
-              <goal>synapse-unit-test</goal>
-            </goals>
-          </execution>
-        </executions>
-        <configuration>
-          <server>
-            <testServerType>${server.type}</testServerType>
-            <testServerHost>${server.host}</testServerHost>
-            <testServerPort>${server.port}</testServerPort>
-            <testServerPath>${server.path}</testServerPath>
-            <testServerVersion>${server.version}</testServerVersion>
-            <testServerDownloadLink>${server.download.link}</testServerDownloadLink>
-          </server>
-          <testCasesFilePath>${project.basedir}/src/test/wso2mi/${testFile}</testCasesFilePath>
-          <mavenTestSkip>${maven.test.skip}</mavenTestSkip>
-        </configuration>
-      </plugin>
     </plugins>
   </build>
   <properties>

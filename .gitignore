@@ -1,0 +1,6 @@
+# Created by GitHub Copilot
+.vscode/
+target/
+*.iml
+.idea/
+.env
